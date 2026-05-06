@@ -9,7 +9,6 @@ F_B  = "/usr/share/fonts/truetype/nanum/NanumSquareB.ttf"
 
 if not os.path.exists(F_EB):
     subprocess.run(["apt-get", "install", "-y", "fonts-nanum"], capture_output=True)
-    subprocess.run(["fc-cache", "-fv"], capture_output=True)
 
 W, H  = 1754, 1241
 SCALE = 1754 / 865
