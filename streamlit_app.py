@@ -1,11 +1,15 @@
 import streamlit as st
 import openpyxl
 from PIL import Image, ImageDraw, ImageFont
-import re, io, zipfile
+import re, io, zipfile, os, subprocess
 
-# ── 폰트
+# ── 폰트 자동 설치 (Streamlit Cloud 대응)
 F_EB = "/usr/share/fonts/truetype/nanum/NanumSquareEB.ttf"
 F_B  = "/usr/share/fonts/truetype/nanum/NanumSquareB.ttf"
+
+if not os.path.exists(F_EB):
+    subprocess.run(["apt-get", "install", "-y", "fonts-nanum"], capture_output=True)
+    subprocess.run(["fc-cache", "-fv"], capture_output=True)
 
 W, H  = 1754, 1241
 SCALE = 1754 / 865
