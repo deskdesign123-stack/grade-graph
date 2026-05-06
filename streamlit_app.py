@@ -55,17 +55,21 @@ def compute_heights(subjects, blue_max):
         if pg == 8:
             ph = int(blue_max * 0.12)
         else:
+            # 올해 1~2등급: 4단계 구분
+            # 올해 3등급 이하: 3단계 구분
             if cg is not None and cg >= 3:
-                if diff <= 3:   gray_lo, gray_hi = 0.36, 0.52
+                if diff == 1:   gray_lo, gray_hi = 0.52, 0.62
+                elif diff <= 3: gray_lo, gray_hi = 0.36, 0.52
                 else:           gray_lo, gray_hi = 0.20, 0.38
             else:
-                if diff <= 2:   gray_lo, gray_hi = 0.52, 0.67
-                elif diff == 3: gray_lo, gray_hi = 0.36, 0.52
-                else:           gray_lo, gray_hi = 0.20, 0.38
+                if diff == 1:   gray_lo, gray_hi = 0.60, 0.70
+                elif diff == 2: gray_lo, gray_hi = 0.48, 0.60
+                elif diff == 3: gray_lo, gray_hi = 0.34, 0.48
+                else:           gray_lo, gray_hi = 0.18, 0.34
             ph = to_h(pg, prev_gs, gray_lo, gray_hi, blue_max)
 
         ch = to_h(cg, curr_gs, 0.72, 0.93, blue_max)
-        min_gap = int(blue_max * 0.08)
+        min_gap = int(blue_max * 0.06)
         if ch <= ph + min_gap: ch = ph + min_gap
         ch = min(ch, int(blue_max * 0.93))
         result.append((ph, ch))
